@@ -1,8 +1,8 @@
 ---
   - name: Ensure parted utility is installed
     ansible.builtin.package:
-    name: parted
-    state: present
+      name: parted
+      state: present
     
   - name: Ensure the mount point directory exists
     ansible.builtin.file:
