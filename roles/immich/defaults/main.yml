@@ -1,0 +1,4 @@
+---
+immich_dir: /opt/immich
+immich_user: immich
+immich_group: immich

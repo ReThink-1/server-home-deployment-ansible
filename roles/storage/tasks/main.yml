@@ -1,0 +1,40 @@
+---
+tasks:
+  - name: Ensure the mount point directory exists
+    ansible.builtin.file:
+      path: "{{ mount_point }}"
+      state: directory
+      owner: root
+      group: root
+      mode: '0755'
+
+  - name: Create a new primary partition on the disk
+    community.general.parted:
+      device: "{{ raw_disk }}"
+      number: 1
+      state: present
+      fs_type: ext4
+      label: gpt
+
+  - name: Format the partition with ext4 filesystem
+    ansible.builtin.filesystem:
+      fstype: ext4
+      dev: "{{ disk_part }}"
+
+  - name: Get the UUID of the disk dynamically
+    ansible.builtin.command: "blkid -s UUID -o value {{ disk_part }}"
+    register: blkid_out
+    changed_when: false
+      
+  - name: Fail if blkid couldn't find a UUID
+    ansible.builtin.fail:
+      msg: "No UUID found for {{ disk_part }}."
+      when: blkid_out.stdout | length == 0
+
+  - name: Mount the disk persistently using UUID
+    ansible.posix.mount:
+      path: "{{ mount_point }}"
+      src: "UUID={{ blkid_out.stdout }}"
+      fstype: ext4
+      opts: defaults,nofail
+      state: mounted

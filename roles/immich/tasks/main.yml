@@ -1,0 +1,55 @@
+---
+- name: Create immich group
+  group:
+    name: "{{ immich_group }}"
+    state: present
+
+- name: Create immich user
+  user:
+    name: "{{ immich_user }}"
+    group: "{{ immich_group }}"
+    system: true
+    create_home: false
+
+- name: Create Immich directory
+  file:
+    path: "{{ immich_dir }}"
+    state: directory
+    owner: "{{ immich_user }}"
+    group: "{{ immich_group }}"
+    mode: "0755"
+
+- name: Create upload directory
+  file:
+    path: "{{ immich_dir }}/library"
+    state: directory
+    owner: "{{ immich_user }}"
+    group: "{{ immich_group }}"
+
+- name: Create postgres directory
+  file:
+    path: "{{ immich_dir }}/postgres"
+    state: directory
+    owner: "{{ immich_user }}"
+    group: "{{ immich_group }}"
+
+- name: Copy compose file
+  copy:
+    src: docker-compose.yml
+    dest: "{{ immich_dir }}/docker-compose.yml"
+    owner: "{{ immich_user }}"
+    group: "{{ immich_group }}"
+    mode: "0644"
+
+- name: Copy environment file
+  copy:
+    src: .env
+    dest: "{{ immich_dir }}/.env"
+    owner: "{{ immich_user }}"
+    group: "{{ immich_group }}"
+    mode: "0600"
+
+- name: Start Immich
+  community.docker.docker_compose_v2:
+    project_src: "{{ immich_dir }}"
+    state: present
