@@ -4,7 +4,6 @@
       name: parted
       state: present
       update_cache: yes
-    become: true
     
   - name: Ensure the mount point directory exists
     ansible.builtin.file:
@@ -22,6 +21,7 @@
       state: present
       fs_type: ext4
       label: gpt
+      force: yes
     environment:
       LANG: C
       LC_ALL: C
