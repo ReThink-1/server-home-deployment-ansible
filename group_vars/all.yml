@@ -2,10 +2,10 @@ docker_users:
   - simulacrum
 
 raw_disk:
-  - "/dev/sdb"
+  - "/dev/sda"
   
 disk_part:
-  - "/dev/sdb1"
+  - "/dev/sda1"
 
 mount_point:
   - "/mnt/data"
