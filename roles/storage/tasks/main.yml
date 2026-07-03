@@ -20,6 +20,9 @@
       state: present
       fs_type: ext4
       label: gpt
+    environment:
+      LANG: C
+      LC_ALL: C
 
   - name: Format the partition with ext4 filesystem
     ansible.builtin.filesystem:
