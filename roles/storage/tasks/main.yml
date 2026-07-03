@@ -1,5 +1,4 @@
 ---
-tasks:
   - name: Ensure the mount point directory exists
     ansible.builtin.file:
       path: "{{ mount_point }}"
