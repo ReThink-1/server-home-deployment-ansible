@@ -4,4 +4,6 @@
   become: true
 
   roles:
+    - storage 
     - docker
+    - immich
