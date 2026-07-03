@@ -39,7 +39,7 @@
   - name: Fail if blkid couldn't find a UUID
     ansible.builtin.fail:
       msg: "No UUID found for {{ disk_part }}."
-      when: blkid_out.stdout | length == 0
+    when: blkid_out.stdout | length == 0
 
   - name: Mount the disk persistently using UUID
     ansible.posix.mount:
