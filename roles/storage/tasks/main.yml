@@ -21,7 +21,6 @@
       state: present
       fs_type: ext4
       label: gpt
-      force: yes
     environment:
       LANG: C
       LC_ALL: C
@@ -30,6 +29,7 @@
     ansible.builtin.filesystem:
       fstype: ext4
       dev: "{{ disk_part }}"
+      force: yes
 
   - name: Get the UUID of the disk dynamically
     ansible.builtin.command: "blkid -s UUID -o value {{ disk_part }}"
