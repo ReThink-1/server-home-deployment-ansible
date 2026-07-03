@@ -11,6 +11,7 @@
       owner: root
       group: root
       mode: '0755'
+    become: true
 
   - name: Create a new primary partition on the disk
     community.general.parted:
