@@ -6,6 +6,7 @@
 # https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
 #
 # The compose file on main may not be compatible with the latest release.
+
 name: immich
 
 services:
@@ -29,8 +30,8 @@ services:
     restart: always
     healthcheck:
       disable: false
-
- immich-machine-learning:
+      
+  immich-machine-learning:
    container_name: immich_machine_learning
    # For hardware acceleration, add one of -[armnn, cuda, rocm, openvino, rknn] to the image tag.
    # Example tag: ${IMMICH_VERSION:-release}-cuda
@@ -45,7 +46,7 @@ services:
    restart: always
    healthcheck:
      disable: false
-
+     
   redis:
     container_name: immich_redis
     image: docker.io/valkey/valkey:9@sha256:fb8d272e529ea567b9bf1302245796f21a2672b8368ca3fcb938ac334e613c8f
