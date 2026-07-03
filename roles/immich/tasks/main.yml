@@ -48,6 +48,7 @@
     owner: "{{ immich_user }}"
     group: "{{ immich_group }}"
     mode: "0600"
+  become: yes
 
 - name: Start Immich
   community.docker.docker_compose_v2:
