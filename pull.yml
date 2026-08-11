@@ -4,6 +4,9 @@
   become: true
 
   roles:
-    - storage 
-    - docker
-    - immich
+    - role: storage
+      tags: [setup]
+    - role: docker
+      tags: [setup]
+    - role: immich
+      tags: [media, photos]
