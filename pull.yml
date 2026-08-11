@@ -4,9 +4,11 @@
   become: true
 
   roles:
+    - role: updates
+      tags: [setup, updates]
     - role: storage
-      tags: [setup]
+      tags: [setup, storage]
     - role: docker
-      tags: [setup]
+      tags: [setup, docker]
     - role: immich
       tags: [media, photos]
